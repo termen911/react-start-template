@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Start repo with required configuration",
   "main": "src/index.tsx",
-  "author": "Igor <spirit-drive@yandex.ru>",
+  "author": "Sergey <termen911@gmail.com>",
   "scripts": {
+    "predeploy": "rm -rf dist && npm run build",
+    "deploy": "gh-pages -d dist",
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
     "test": "jest src",
@@ -13,6 +15,7 @@
     "build-storybook": "storybook build"
   },
   "license": "MIT",
+  "home": "https://sergey-termen.github.io",
   "devDependencies": {
     "@babel/core": "^7.22.1",
     "@babel/preset-env": "^7.22.4",
@@ -46,6 +49,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.8.0",
     "fork-ts-checker-webpack-plugin": "^8.0.0",
+    "gh-pages": "^6.3.0",
     "html-webpack-plugin": "^5.5.1",
     "husky": "^8.0.0",
     "jest": "^29.5.0",
