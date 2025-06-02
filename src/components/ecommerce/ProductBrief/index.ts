@@ -1,0 +1,1 @@
+export { ProductBrief } from './ProductBrief';

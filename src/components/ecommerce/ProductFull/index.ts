@@ -1,0 +1,1 @@
+export { ProductFull } from './ProductFull';
