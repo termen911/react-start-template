@@ -1,0 +1,79 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.innerCircle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-radius: 50%;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Размеры */
+.small .circle {
+  width: 24px;
+  height: 24px;
+}
+
+.small .innerCircle {
+  width: 8px;
+  height: 8px;
+}
+
+.small .text {
+  font-size: 14px;
+}
+
+.medium .circle {
+  width: 32px;
+  height: 32px;
+}
+
+.medium .innerCircle {
+  width: 12px;
+  height: 12px;
+}
+
+.medium .text {
+  font-size: 18px;
+}
+
+.large .circle {
+  width: 48px;
+  height: 48px;
+}
+
+.large .innerCircle {
+  width: 18px;
+  height: 18px;
+}
+
+.large .text {
+  font-size: 24px;
+}
