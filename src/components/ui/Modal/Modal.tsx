@@ -1,10 +1,6 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
+import { ModalProps } from '../types';
 import s from './Modal.module.css';
-
-interface ModalProps {
-  visible: boolean;
-  children: ReactNode;
-}
 
 export const Modal: FC<ModalProps> = ({ visible, children }) => {
   if (!visible) {

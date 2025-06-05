@@ -1,11 +1,7 @@
-import React, { FC, ReactNode } from 'react';
-import s from './Header.module.css';
+import React, { FC } from 'react';
 import { Logo } from '../../ui';
-
-interface HeaderProps {
-  children?: ReactNode;
-  className?: string;
-}
+import { HeaderProps } from '../types';
+import s from './Header.module.css';
 
 export const Header: FC<HeaderProps> = ({ children, className }) => {
   return (
