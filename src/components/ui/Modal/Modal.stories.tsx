@@ -13,6 +13,10 @@ const meta: Meta<typeof Modal> = {
       control: 'boolean',
       description: 'Управляет видимостью модального окна',
     },
+    onClose: {
+      action: 'closed',
+      description: 'Функция вызываемая при закрытии модального окна',
+    },
   },
 };
 

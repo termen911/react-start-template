@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Logo } from './Logo';
+import { Sizes } from '../types';
 
 const meta: Meta<typeof Logo> = {
   title: 'Components/UI/Logo',
@@ -22,6 +23,6 @@ type Story = StoryObj<typeof Logo>;
 
 export const Default: Story = {
   args: {
-    size: 'medium',
+    size: Sizes.medium,
   },
 };

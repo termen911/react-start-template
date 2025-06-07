@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Logo } from '../../ui';
+import { Sizes } from '../../ui/types';
 import { HeaderProps } from '../types';
 import s from './Header.module.css';
 
@@ -8,7 +9,7 @@ export const Header: FC<HeaderProps> = ({ children, className }) => {
     <header className={`${s.header} ${className || ''}`}>
       <div className={s.container}>
         <div className={s.logoSection}>
-          <Logo size="medium" />
+          <Logo size={Sizes.medium} />
         </div>
 
         {children && <div className={s.content}>{children}</div>}
