@@ -33,6 +33,12 @@
   justify-content: flex-end;
 }
 
+.switchers {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
   .container {

@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Logo } from '../../ui';
+import { LocalizationToggle } from '../../ui/LocalizationToggle';
 import { ThemeToggle } from '../../ui/ThemeToggle';
 import { Sizes } from '../../ui/types';
 import { HeaderProps } from '../types';
 import s from './Header.module.css';
-import { LocalizationToggle } from 'src/components/ui/LocalizationToggle/LocalizationToggle';
 
 export const Header: FC<HeaderProps> = ({ children, className }) => {
   return (
@@ -16,7 +16,7 @@ export const Header: FC<HeaderProps> = ({ children, className }) => {
 
         {children && <div className={s.content}>{children}</div>}
 
-        <div className={s.themeSwitcher}>
+        <div className={s.switchers}>
           <ThemeToggle />
           <LocalizationToggle />
         </div>

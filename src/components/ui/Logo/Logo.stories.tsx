@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Logo } from './Logo';
+import React from 'react';
+import { LocalizationProvider } from 'src/shared/providers/LangProvider';
 import { Sizes } from '../types';
+import { Logo } from './Logo';
 
 const meta: Meta<typeof Logo> = {
   title: 'Components/UI/Logo',
@@ -22,6 +24,11 @@ export default meta;
 type Story = StoryObj<typeof Logo>;
 
 export const Default: Story = {
+  render: () => (
+    <LocalizationProvider>
+      <Logo size={Sizes.medium} />
+    </LocalizationProvider>
+  ),
   args: {
     size: Sizes.medium,
   },

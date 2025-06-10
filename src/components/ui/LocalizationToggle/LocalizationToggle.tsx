@@ -4,5 +4,9 @@ import s from './LocalizationToggle.module.css';
 
 export const LocalizationToggle = () => {
   const { langScheme, toggleLangScheme } = useLocalizationScheme();
-  return <button className={s.localizationToggle} onClick={toggleLangScheme}>{langScheme}</button>;
+  return (
+    <button className={s.localizationToggle} onClick={toggleLangScheme}>
+      {langScheme}
+    </button>
+  );
 };

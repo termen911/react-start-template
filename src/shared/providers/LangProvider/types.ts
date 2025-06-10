@@ -7,4 +7,5 @@ export interface LocalizationContextType {
   langScheme: LocalizationScheme;
   toggleLangScheme: () => void;
   setLangScheme: (scheme: LocalizationScheme) => void;
+  t: (key: string) => string;
 }

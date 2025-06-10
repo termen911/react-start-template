@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { LocalizationContextType, LocalizationScheme } from './types';
-
+import i18n from './i18n.config';
 const LocalizationContext = createContext<LocalizationContextType | undefined>(undefined);
 
 interface LocalizationProviderProps {
@@ -44,29 +44,15 @@ export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({
     document.documentElement.setAttribute('lang', langScheme);
   }, [langScheme]);
 
-  // Слушаем изменения системных предпочтений
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      // Обновляем тему только если пользователь не выбрал конкретную тему
-      const savedScheme = localStorage.getItem('theme-scheme');
-      if (!savedScheme) {
-        setLangScheme(e.matches ? LocalizationScheme.en : LocalizationScheme.ru);
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-
-    return () => {
-      mediaQuery.removeEventListener('change', handleChange);
-    };
-  }, []);
+    i18n.changeLanguage(langScheme);
+  }, [langScheme]);
 
   const contextValue: LocalizationContextType = {
     langScheme,
     toggleLangScheme,
     setLangScheme: handleSetLangScheme,
+    t: (key: string) => i18n.t(key, { lng: langScheme }),
   };
 
   return <LocalizationContext.Provider value={contextValue}>{children}</LocalizationContext.Provider>;
