@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Logo } from '../../ui';
+import { ThemeToggle } from '../../ui/ThemeToggle';
 import { Sizes } from '../../ui/types';
 import { HeaderProps } from '../types';
 import s from './Header.module.css';
@@ -13,6 +14,10 @@ export const Header: FC<HeaderProps> = ({ children, className }) => {
         </div>
 
         {children && <div className={s.content}>{children}</div>}
+
+        <div className={s.themeSwitcher}>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );
