@@ -2,10 +2,11 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: #ffffff;
+  background-color: var(--background-color);
   border-bottom: 1px solid #e9ecef;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  max-height: 100px;
 }
 
 .container {
@@ -30,6 +31,12 @@
   gap: 16px;
   flex: 1;
   justify-content: flex-end;
+}
+
+.switchers {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 /* Адаптивность */

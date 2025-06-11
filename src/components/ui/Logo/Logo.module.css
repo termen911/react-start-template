@@ -19,10 +19,9 @@
 }
 
 .circle {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--text-color);
   border-radius: 50%;
   position: relative;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .innerCircle {
@@ -30,9 +29,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: var(--background-color);
   border-radius: 50%;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.text {
+  color: var(--text-color);
 }
 
 /* Размеры */

@@ -65,7 +65,9 @@
   },
   "dependencies": {
     "clsx": "^1.2.1",
+    "i18next": "^25.2.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-i18next": "^15.5.2"
   }
 }
