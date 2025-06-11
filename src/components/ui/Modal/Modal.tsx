@@ -1,9 +1,26 @@
 import React, { FC, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { ModalProps } from '../types';
 import s from './Modal.module.css';
 
 export const Modal: FC<ModalProps> = ({ visible, children, onClose }) => {
   const [isOpen, setIsOpen] = useState<boolean>(visible);
+  const [portalElement, setPortalElement] = useState<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // Создаем элемент портала при монтировании
+    const element = document.createElement('div');
+    element.id = 'modal-portal';
+    document.body.appendChild(element);
+    setPortalElement(element);
+
+    // Удаляем элемент портала при размонтировании
+    return () => {
+      if (document.body.contains(element)) {
+        document.body.removeChild(element);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     setIsOpen(visible);
@@ -14,7 +31,7 @@ export const Modal: FC<ModalProps> = ({ visible, children, onClose }) => {
     onClose?.();
   };
 
-  return (
+  const modalContent = (
     <>
       {isOpen ? (
         <div className={s.overlay}>
@@ -28,4 +45,7 @@ export const Modal: FC<ModalProps> = ({ visible, children, onClose }) => {
       ) : null}
     </>
   );
+
+  // Используем портал для рендеринга в body, если элемент портала создан
+  return portalElement ? createPortal(modalContent, portalElement) : null;
 };

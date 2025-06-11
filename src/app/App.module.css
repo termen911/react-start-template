@@ -11,6 +11,14 @@
     justify-content: center;
     height: 100vh;
     background-color: var(--background-color);
+
+}
+
+.productList {
+    width: 100%;
+    max-width: 1200px;
+        max-height: 40vh;
+    overflow-y: auto;
 }
 
 .logo {

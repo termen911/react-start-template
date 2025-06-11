@@ -1,0 +1,226 @@
+.productList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  color: white;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.stats {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.statLabel {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statValue {
+  font-size: 18px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.income {
+  color: #00ff88;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.expense {
+  color: #ff6b6b;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.listItem {
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+
+.listItem:hover {
+  transform: translateX(8px);
+}
+
+/* Состояние пустого списка */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 20px;
+  border: 2px dashed #d0d0d0;
+  margin: 20px 0;
+}
+
+.emptyIcon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  filter: grayscale(0.5);
+}
+
+.emptyTitle {
+  margin: 0 0 16px 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #34495e;
+}
+
+.emptyDescription {
+  margin: 0;
+  font-size: 16px;
+  color: #7f8c8d;
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .productList {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .stat {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 16px;
+    border-radius: 12px;
+  }
+
+  .statValue {
+    background: transparent;
+    padding: 0;
+  }
+
+  .listItem:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .productList {
+    padding: 12px;
+  }
+
+  .header {
+    padding: 12px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .statValue {
+    font-size: 16px;
+  }
+
+  .emptyState {
+    padding: 40px 16px;
+  }
+
+  .emptyIcon {
+    font-size: 48px;
+  }
+
+  .emptyTitle {
+    font-size: 20px;
+  }
+
+  .emptyDescription {
+    font-size: 14px;
+  }
+}
+
+/* Анимации появления */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.listItem {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.listItem:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.listItem:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.listItem:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.listItem:nth-child(5) {
+  animation-delay: 0.4s;
+}
