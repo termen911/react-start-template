@@ -1,10 +1,10 @@
 import React from 'react';
+import { ProductList } from 'src/components/ecommerce/ProductList';
 import { Header } from 'src/components/layout/Header/Header';
+import { LocalizationProvider } from 'src/shared/providers/LangProvider';
 import { ThemeProvider } from 'src/shared/providers/ThemeProvider';
 import 'src/shared/styles/theme.scss';
 import s from './App.module.css';
-import logo from './logo.svg';
-import { LocalizationProvider } from 'src/shared/providers/LangProvider';
 
 function App() {
   return (
@@ -14,7 +14,9 @@ function App() {
           <div className={s.container}>
             <Header />
             <div className={s.content}>
-              <img src={logo} className={s.logo} alt="logo" />
+              <div className={s.productList}>
+                <ProductList />
+              </div>
             </div>
           </div>
         </ThemeProvider>

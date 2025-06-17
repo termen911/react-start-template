@@ -11,7 +11,7 @@ export interface LogoProps {
 }
 
 export interface ModalProps {
-  visible: boolean;
+  isOpen: boolean;
   children: ReactNode;
-  onClose?: () => void;
+  onClose: () => void;
 }
