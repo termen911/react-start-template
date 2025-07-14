@@ -1,91 +1,133 @@
+/* Основные стили для кнопки добавления */
 .addButton {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 8px 16px;
+  background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 600;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
 }
 
-.addButton:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+.addButton:hover {
+  background-color: #0056b3;
 }
 
 .addButton:disabled {
-  opacity: 0.6;
+  background-color: #cccccc;
   cursor: not-allowed;
-  transform: none;
 }
 
+/* Размеры для кнопки добавления */
+.addButton.small {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.addButton.medium {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.addButton.large {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+/* Контейнер для счетчика */
 .counterContainer {
   display: flex;
   align-items: center;
-  background: white;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
-  overflow: hidden;
+  gap: 8px;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  padding: 4px;
 }
 
+/* Размеры для контейнера счетчика */
+.counterContainer.small {
+  gap: 4px;
+  padding: 2px;
+}
+
+.counterContainer.medium {
+  gap: 8px;
+  padding: 4px;
+}
+
+.counterContainer.large {
+  gap: 12px;
+  padding: 6px;
+}
+
+/* Кнопки счетчика */
 .counterButton {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  background-color: #e9ecef;
+  color: #495057;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: #f8f9fa;
-  border: none;
-  font-size: 18px;
-  font-weight: 600;
-  color: #495057;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
-.counterButton:hover:not(:disabled) {
-  background: #e9ecef;
-  color: #212529;
+.counterButton:hover {
+  background-color: #dee2e6;
 }
 
 .counterButton:disabled {
-  opacity: 0.4;
+  background-color: #f8f9fa;
+  color: #adb5bd;
   cursor: not-allowed;
 }
 
-.counter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-  height: 36px;
-  padding: 0 8px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #212529;
-  background: white;
+/* Размеры для кнопок счетчика */
+.counterContainer.small .counterButton {
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
 }
 
-/* Адаптивность */
-@media (max-width: 480px) {
-  .addButton {
-    padding: 10px 20px;
-    font-size: 13px;
-  }
+.counterContainer.medium .counterButton {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
 
-  .counterButton {
-    width: 32px;
-    height: 32px;
-    font-size: 16px;
-  }
+.counterContainer.large .counterButton {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+}
 
-  .counter {
-    height: 32px;
-    min-width: 36px;
-    font-size: 14px;
-  }
+/* Счетчик */
+.counter {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Размеры для счетчика */
+.counterContainer.small .counter {
+  font-size: 12px;
+  min-width: 20px;
+}
+
+.counterContainer.medium .counter {
+  font-size: 14px;
+  min-width: 24px;
+}
+
+.counterContainer.large .counter {
+  font-size: 16px;
+  min-width: 32px;
 }
