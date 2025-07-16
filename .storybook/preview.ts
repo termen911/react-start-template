@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/react';
 import React from 'react';
+import { LocalizationProvider } from '../src/shared/providers/LangProvider';
+import { ThemeProvider } from '../src/shared/providers/ThemeProvider';
 import '../src/shared/styles/theme.scss';
 
 const preview: Preview = {
@@ -14,20 +16,22 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => {
-      return React.createElement(
-        'div',
-        {
-          className: 'theme-transition',
-          style: {
-            padding: '20px',
-            backgroundColor: 'var(--background-color)',
-            color: 'var(--text-color)',
-          },
-        },
-        {
-          ...React.createElement(Story),
-        }
-      );
+      return React.createElement(ThemeProvider, {
+        children: React.createElement(LocalizationProvider, {
+          children: React.createElement(
+            'div',
+            {
+              className: 'theme-transition',
+              style: {
+                padding: '20px',
+                backgroundColor: 'var(--background-color)',
+                color: 'var(--text-color)',
+              },
+            },
+            React.createElement(Story)
+          ),
+        }),
+      });
     },
   ],
 };
