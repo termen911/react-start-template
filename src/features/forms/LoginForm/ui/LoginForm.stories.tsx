@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { RegisterForm } from './RegisterForm';
+import { LoginForm } from './LoginForm';
 
-const meta: Meta<typeof RegisterForm> = {
-  title: 'Features/Auth/RegisterForm',
-  component: RegisterForm,
+const meta: Meta<typeof LoginForm> = {
+  title: 'Features/Forms/LoginForm',
+  component: LoginForm,
   parameters: {
     layout: 'centered',
   },
@@ -33,7 +33,7 @@ export const Loading: Story = {
 export const WithError: Story = {
   args: {
     loading: false,
-    error: 'Пользователь с таким email уже существует',
+    error: 'Неверный email или пароль',
   },
 };
 
@@ -41,8 +41,5 @@ export const WithValidationError: Story = {
   args: {
     loading: false,
     error: undefined,
-  },
-  play: async ({ canvasElement }) => {
-    // Можно добавить интеракции для демонстрации валидации
   },
 };

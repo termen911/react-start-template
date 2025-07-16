@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TransactionForm } from './TransactionForm';
 
 const meta: Meta<typeof TransactionForm> = {
-  title: 'Features/Transaction/TransactionForm',
+  title: 'Features/Forms/TransactionForm',
   component: TransactionForm,
   parameters: {
     layout: 'centered',

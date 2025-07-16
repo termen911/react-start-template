@@ -1,4 +1,4 @@
-import { ProductFormData } from '../../../../shared/lib/validation/product';
+import { ProductFormData } from '../../../../../shared/lib/validation/product';
 
 export interface ProductFormProps {
   onSubmit: (data: ProductFormData) => void;

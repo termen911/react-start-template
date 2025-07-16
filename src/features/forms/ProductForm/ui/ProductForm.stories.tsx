@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ProductForm } from './ProductForm';
 
 const meta: Meta<typeof ProductForm> = {
-  title: 'Features/Product/ProductForm',
+  title: 'Features/Forms/ProductForm',
   component: ProductForm,
   parameters: {
     layout: 'centered',
