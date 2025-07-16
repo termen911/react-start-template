@@ -10,6 +10,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit, loading = 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
   } = useForm<RegisterFormData>({
     resolver: yupResolver(registerValidationSchema) as any,
@@ -17,7 +18,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit, loading = 
   });
 
   const handleFormSubmit = (data: RegisterFormData) => {
+    console.log('RegisterForm submit data', data);
     onSubmit(data);
+    reset();
   };
 
   return (

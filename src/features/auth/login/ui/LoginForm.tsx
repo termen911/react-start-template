@@ -10,6 +10,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, loading = false,
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginValidationSchema) as any,
@@ -17,7 +18,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, loading = false,
   });
 
   const handleFormSubmit = (data: LoginFormData) => {
+    console.log('LoginForm submit data', data);
     onSubmit(data);
+    reset();
   };
 
   return (
