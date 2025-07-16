@@ -1,9 +1,156 @@
-
-
+/* Базовые стили для ThemeToggle */
 .themeToggle {
-  background-color: transparent;
-  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 24px;
-  color: black;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  font-weight: 500;
+  color: #495057;
+}
+
+.themeToggle:hover {
+  background: #e9ecef;
+  border-color: #dee2e6;
+  transform: translateY(-1px);
+}
+
+.themeToggle:active {
+  transform: translateY(0);
+}
+
+.themeToggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.themeToggle:disabled:hover {
+  background: #f8f9fa;
+  border-color: #e9ecef;
+}
+
+/* Размеры */
+.themeToggle.small {
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.themeToggle.medium {
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.themeToggle.large {
+  padding: 10px 16px;
+  font-size: 16px;
+}
+
+/* Варианты отображения */
+.themeToggle.default {
+  /* Стандартный вариант - используем базовые стили */
+}
+
+.themeToggle.minimal {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.themeToggle.minimal:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: transparent;
+}
+
+.themeToggle.rounded {
+  border-radius: 50px;
+}
+
+/* Иконка */
+.icon {
+  font-size: inherit;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.themeToggle:hover .icon {
+  transform: rotate(15deg);
+}
+
+.themeToggle.small .icon {
+  font-size: 16px;
+}
+
+.themeToggle.medium .icon {
+  font-size: 18px;
+}
+
+.themeToggle.large .icon {
+  font-size: 20px;
+}
+
+/* Лейбл */
+.label {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  white-space: nowrap;
+}
+
+/* Фокус */
+.themeToggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #007bff40;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .themeToggle {
+    touch-action: manipulation;
+  }
+
+  .themeToggle.small {
+    padding: 8px 10px;
+  }
+
+  .themeToggle.medium {
+    padding: 10px 12px;
+  }
+
+  .themeToggle.large {
+    padding: 12px 16px;
+  }
+}
+
+/* Темная тема */
+@media (prefers-color-scheme: dark) {
+  .themeToggle {
+    background: #343a40;
+    border-color: #495057;
+    color: #f8f9fa;
+  }
+
+  .themeToggle:hover {
+    background: #495057;
+    border-color: #6c757d;
+  }
+
+  .themeToggle.minimal {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .themeToggle.minimal:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .themeToggle:disabled {
+    background: #343a40;
+    border-color: #495057;
+    opacity: 0.5;
+  }
 }
