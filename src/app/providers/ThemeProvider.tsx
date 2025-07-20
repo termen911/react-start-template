@@ -2,6 +2,9 @@ import { ConfigProvider } from 'antd';
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import { getThemeConfig } from '../../shared/lib/antd/themes';
 import { ThemeContextValue, ThemeMode } from '../../shared/types/theme';
+import { useAppTranslation } from './i18n';
+import enUs from 'antd/locale/en_US';
+import ruRu from 'antd/locale/ru_RU';
 
 export const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
@@ -11,6 +14,7 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [mode, setMode] = useState<ThemeMode>('light');
+  const { currentLang } = useAppTranslation();
 
   const toggleTheme = () => {
     setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -33,7 +37,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={contextValue}>
-      <ConfigProvider theme={getThemeConfig(mode)}>{children}</ConfigProvider>
+      <ConfigProvider theme={getThemeConfig(mode)} locale={currentLang === 'ru' ? ruRu : enUs}>
+        {children}
+      </ConfigProvider>
     </ThemeContext.Provider>
   );
 };

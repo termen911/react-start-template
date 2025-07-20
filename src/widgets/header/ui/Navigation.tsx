@@ -14,7 +14,7 @@ export const Navigation = () => {
 
   const items: MenuItem[] = navigationConfig.map((item: NavigationItem) => ({
     key: item.path,
-    label: t('navigation.profile'),
+    label: t(item.label),
   }));
 
   const handleClick = (item: MenuProps['items'][number]) => {

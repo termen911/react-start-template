@@ -1,0 +1,132 @@
+{
+    "title": "Операции",
+    "empty": "Нет операций",
+    "pagination": {
+        "titleOfPage": "{{viewed}}-{{all}} из {{total}} операций"
+    },
+    "stats": {
+        "income": "Доходы",
+        "expenses": "Расходы",
+        "total": "Операций"
+    },
+    "card": {
+        "income": "Доход",
+        "expense": "Расход",
+        "transfer": "Перевод",
+        "unknown": "Неизвестно"
+    },
+    "details": "Детали операции",
+    "dateOfOperation": "Дата операции",
+    "createdAt": "Создано",
+    "updatedAt": "Обновлено",
+    "actions": "Действия",
+    "backToList": "Назад к списку",
+    "create": "Создать операцию",
+    "edit": "Редактировать",
+    "delete": "Удалить операцию",
+    "amount": "Сумма",
+    "description": "Описание",
+    "tags": "Теги",
+    "messages": {
+        "success": "Операция удалена успешно!",
+        "notFound": "Транзакция не найдена",
+        "deleteWarning": "Вы уверены, что хотите удалить операцию?"
+    },
+    "form": {
+        "type": {
+            "label": "Тип операции",
+            "income": "Доход",
+            "expense": "Расход",
+            "transfer": "Перевод"
+        },
+        "amount": {
+            "label": "Сумма",
+            "placeholder": "Введите сумму"
+        },
+        "title": {
+            "label": "Название",
+            "placeholder": "Введите название операции"
+        },
+        "category": {
+            "label": "Категория",
+            "help": "Выберите категорию из предложенных"
+        },
+        "date": {
+            "label": "Дата операции",
+            "placeholder": "Выберите дату"
+        },
+        "description": {
+            "label": "Описание",
+            "placeholder": "Введите описание операции (необязательно)"
+        },
+        "tags": {
+            "label": "Теги",
+            "placeholder": "Введите тег",
+            "add": "Добавить"
+        },
+        "buttons": {
+            "save": "Сохранить",
+            "reset": "Сбросить"
+        },
+        "validation": {
+            "typeRequired": "Выберите тип операции",
+            "amountRequired": "Введите сумму операции",
+            "amountMin": "Сумма должна быть больше 0",
+            "amountMax": "Сумма не может превышать 1 миллиард",
+            "titleRequired": "Введите название операции",
+            "titleMinLength": "Название должно содержать минимум 3 символа",
+            "titleMaxLength": "Название не может превышать 100 символов",
+            "descriptionMaxLength": "Описание не может превышать 500 символов",
+            "categoryRequired": "Выберите категорию операции",
+            "dateRequired": "Выберите дату операции",
+            "dateFuture": "Дата операции не может быть в будущем",
+            "tagsMaxCount": "Максимальное количество тегов: 10",
+            "tagMaxLength": "Тег не может превышать 20 символов"
+        },
+        "categories": {
+            "income": {
+                "salary": "Зарплата",
+                "freelance": "Фриланс",
+                "investments": "Инвестиции",
+                "bonuses": "Бонусы и премии",
+                "other": "Прочие доходы"
+            },
+            "expense": {
+                "products": "Продукты",
+                "restaurants": "Рестораны и кафе",
+                "gas": "Бензин",
+                "utilities": "Коммунальные услуги",
+                "entertainment": "Развлечения",
+                "transport": "Общественный транспорт",
+                "health": "Здоровье и медицина",
+                "shopping": "Покупки",
+                "education": "Образование",
+                "rent": "Аренда",
+                "other": "Прочие расходы"
+            },
+            "transfer": {
+                "transfer": "Перевод между счетами",
+                "investments": "Инвестиции",
+                "savings": "Сбережения"
+            }
+        }
+    },
+    "modal": {
+        "create": {
+            "title": "Создать операцию"
+        },
+        "edit": {
+            "title": "Редактировать операцию"
+        },
+        "error": {
+            "title": "Ошибка",
+            "notFound": "Транзакция не найдена"
+        },
+        "messages": {
+            "createSuccess": "Операция успешно создана!",
+            "createError": "Ошибка при создании операции",
+            "updateSuccess": "Операция успешно обновлена!",
+            "updateError": "Ошибка при обновлении операции"
+        }
+    }
+}

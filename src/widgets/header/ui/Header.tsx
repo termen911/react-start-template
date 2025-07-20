@@ -1,11 +1,14 @@
-import { Flex, Layout, Space } from 'antd';
-import React from 'react';
-import { LangSwitcher } from 'src/features/lang-switcher';
-import { ThemeSwitcherButton } from 'src/features/theme-switcher';
-import { Logo } from 'src/shared/ui/Logo';
+import { Button, Flex, Layout, Space } from 'antd';
+import React, { useState } from 'react';
+import { UserAvatar } from 'src/features/auth/userAvatar';
+import { LangSwitcher } from 'src/features/langSwitcher';
+import { ThemeSwitcherButton } from 'src/features/themeSwitcher';
+import { Logo } from 'src/shared/ui/logo';
 import { Navigation } from './Navigation';
 
 export const Header = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+
   return (
     <Layout.Header>
       <Flex gap={16} align="center">
@@ -15,7 +18,13 @@ export const Header = () => {
           <Flex gap={16} align="center">
             <LangSwitcher />
             <ThemeSwitcherButton />
-            <div>123</div>
+            {isAuthenticated ? (
+              <UserAvatar />
+            ) : (
+              <Button type="primary" onClick={() => setIsAuthenticated(true)}>
+                Login
+              </Button>
+            )}
           </Flex>
         </Space>
       </Flex>

@@ -1,0 +1,1 @@
+export { useTransactionDetail } from './useTransactionDetail';

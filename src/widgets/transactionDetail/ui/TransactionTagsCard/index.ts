@@ -1,0 +1,1 @@
+export { TransactionTagsCard } from './TransactionTagsCard';

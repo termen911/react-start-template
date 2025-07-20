@@ -1,0 +1,29 @@
+{
+    "title": "User Profile",
+    "nickname": {
+        "label": "Nickname",
+        "placeholder": "Enter your nickname",
+        "validation": {
+            "required": "Nickname is required",
+            "minLength": "Nickname must contain at least 2 characters",
+            "maxLength": "Nickname must not exceed 50 characters",
+            "pattern": "Nickname can only contain letters, numbers, hyphens and underscores"
+        }
+    },
+    "about": {
+        "label": "About",
+        "placeholder": "Tell us about yourself...",
+        "validation": {
+            "maxLength": "Description must not exceed 500 characters"
+        }
+    },
+    "buttons": {
+        "save": "Save",
+        "reset": "Reset",
+        "reset.confirm": "Are you sure you want to reset the changes?"
+    },
+    "messages": {
+        "success": "Profile updated successfully!",
+        "error": "Error updating profile"
+    }
+}

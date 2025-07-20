@@ -1,10 +1,16 @@
 import React from 'react';
-import { MainLayout } from 'src/layouts/main-layout';
+import { useAppTranslation } from 'src/app/providers/i18n';
+import { MainTitleWithTranslation } from 'src/shared';
+import { MainLayout } from 'src/shared/ui/mainLayout';
 
-export const HomePage = () => {
+const HomePage = () => {
+  const { t } = useAppTranslation();
+
   return (
     <MainLayout>
-      <div>HomePage</div>
+      <MainTitleWithTranslation title={t('home.title')} />
     </MainLayout>
   );
 };
+
+export default HomePage;

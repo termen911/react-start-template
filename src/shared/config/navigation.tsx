@@ -1,20 +1,9 @@
 export const navigationConfig = [
   {
-    label: 'navigation.profile',
-    path: '/profile',
-    replace: true,
-  },
-  {
-    label: 'navigation.products',
-    path: '/products',
-    replace: true,
-  },
-  {
-    label: 'navigation.transactions',
+    label: 'navigation.transactions' as const,
     path: '/transactions',
     replace: true,
   },
 ] as const;
 
 export type NavigationItem = (typeof navigationConfig)[number];
-export type TranslationKey = NavigationItem['label'];

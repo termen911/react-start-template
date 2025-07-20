@@ -1,1 +1,0 @@
-export { ProductBrief } from './ProductBrief';

@@ -1,14 +1,16 @@
 import React from 'react';
 import { RouterProvider } from 'react-router';
-import { routes } from 'src/shared/config';
-import { ThemeProvider } from './providers';
+import { routeConfig } from './config';
+import { I18nProvider, ThemeProvider } from './providers';
 import './styles/global.scss';
 
 function App() {
   return (
-    <ThemeProvider>
-      <RouterProvider router={routes} />
-    </ThemeProvider>
+    <I18nProvider>
+      <ThemeProvider>
+        <RouterProvider router={routeConfig} />
+      </ThemeProvider>
+    </I18nProvider>
   );
 }
 
