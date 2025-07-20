@@ -1,0 +1,132 @@
+{
+    "title": "Transactions",
+    "empty": "No transactions",
+    "pagination": {
+        "titleOfPage": "{{viewed}}-{{all}} of {{total}} operations"
+    },
+    "stats": {
+        "income": "Income",
+        "expenses": "Expenses",
+        "total": "Operations"
+    },
+    "card": {
+        "income": "Income",
+        "expense": "Expense",
+        "transfer": "Transfer",
+        "unknown": "Unknown"
+    },
+    "details": "Details",
+    "dateOfOperation": "Date of operation",
+    "createdAt": "Created",
+    "updatedAt": "Updated",
+    "actions": "Actions",
+    "backToList": "Back to list",
+    "create": "Create Transaction",
+    "edit": "Edit",
+    "delete": "Delete operation",
+    "amount": "Amount",
+    "description": "Description",
+    "tags": "Tags",
+    "messages": {
+        "success": "Operation deleted successfully!",
+        "notFound": "Transaction not found",
+        "deleteWarning": "Are you sure you want to delete the operation?"
+    },
+    "form": {
+        "type": {
+            "label": "Transaction Type",
+            "income": "Income",
+            "expense": "Expense",
+            "transfer": "Transfer"
+        },
+        "amount": {
+            "label": "Amount",
+            "placeholder": "Enter amount"
+        },
+        "title": {
+            "label": "Title",
+            "placeholder": "Enter transaction title"
+        },
+        "category": {
+            "label": "Category",
+            "help": "Select a category from the options"
+        },
+        "date": {
+            "label": "Transaction Date",
+            "placeholder": "Select date"
+        },
+        "description": {
+            "label": "Description",
+            "placeholder": "Enter transaction description (optional)"
+        },
+        "tags": {
+            "label": "Tags",
+            "placeholder": "Enter tag",
+            "add": "Add"
+        },
+        "buttons": {
+            "save": "Save",
+            "reset": "Reset"
+        },
+        "validation": {
+            "typeRequired": "Please select transaction type",
+            "amountRequired": "Please enter transaction amount",
+            "amountMin": "Amount must be greater than 0",
+            "amountMax": "Amount cannot exceed 1 billion",
+            "titleRequired": "Please enter transaction title",
+            "titleMinLength": "Title must be at least 3 characters long",
+            "titleMaxLength": "Title cannot exceed 100 characters",
+            "descriptionMaxLength": "Description cannot exceed 500 characters",
+            "categoryRequired": "Please select a category",
+            "dateRequired": "Please select transaction date",
+            "dateFuture": "Transaction date cannot be in the future",
+            "tagsMaxCount": "Maximum number of tags: 10",
+            "tagMaxLength": "Tag cannot exceed 20 characters"
+        },
+        "categories": {
+            "income": {
+                "salary": "Salary",
+                "freelance": "Freelance",
+                "investments": "Investments",
+                "bonuses": "Bonuses and bonuses",
+                "other": "Other income"
+            },
+            "expense": {
+                "products": "Products",
+                "restaurants": "Restaurants and cafes",
+                "gas": "Gas",
+                "utilities": "Utilities",
+                "entertainment": "Entertainment",
+                "transport": "Public transport",
+                "health": "Health and medicine",
+                "shopping": "Shopping",
+                "education": "Education",
+                "rent": "Rent",
+                "other": "Other expenses"
+            },
+            "transfer": {
+                "transfer": "Transfer between accounts",
+                "investments": "Investments",
+                "savings": "Savings"
+            }
+        }
+    },
+    "modal": {
+        "create": {
+            "title": "Create Transaction"
+        },
+        "edit": {
+            "title": "Edit Transaction"
+        },
+        "error": {
+            "title": "Error",
+            "notFound": "Transaction not found"
+        },
+        "messages": {
+            "createSuccess": "Transaction created successfully!",
+            "createError": "Error creating transaction",
+            "updateSuccess": "Transaction updated successfully!",
+            "updateError": "Error updating transaction"
+        }
+    }
+}

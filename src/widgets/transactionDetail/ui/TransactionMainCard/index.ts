@@ -1,0 +1,1 @@
+export { TransactionMainCard } from './TransactionMainCard';
