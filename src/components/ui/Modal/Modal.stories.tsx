@@ -9,7 +9,7 @@ const meta: Meta<typeof Modal> = {
     layout: 'fullscreen',
   },
   argTypes: {
-    visible: {
+    isOpen: {
       control: 'boolean',
       description: 'Управляет видимостью модального окна',
     },
@@ -25,7 +25,7 @@ type Story = StoryObj<typeof Modal>;
 
 export const Default: Story = {
   args: {
-    visible: true,
+    isOpen: true,
     children: 'Это содержимое модального окна',
   },
 };
