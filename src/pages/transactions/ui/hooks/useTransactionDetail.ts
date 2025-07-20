@@ -1,5 +1,5 @@
 import { theme } from 'antd';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useAppTranslation } from 'src/app/providers/i18n';
 import { MockAPI } from 'src/shared/api/mock';
 import { TransactionType } from 'src/shared/api/mock/types';

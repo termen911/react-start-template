@@ -1,6 +1,6 @@
 import { Menu, type MenuProps } from 'antd';
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppTranslation } from 'src/app/providers/i18n';
 import { navigationConfig, NavigationItem } from 'src/shared/config';
 
@@ -17,7 +17,7 @@ export const Navigation = () => {
     label: t(item.label),
   }));
 
-  const handleClick = (item: MenuProps['items'][number]) => {
+  const handleClick: MenuProps['onClick'] = (item) => {
     navigate(item.key as string);
   };
 

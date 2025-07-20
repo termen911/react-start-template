@@ -1,16 +1,21 @@
 import React from 'react';
-import { RouterProvider } from 'react-router';
-import { routeConfig } from './config';
+import { BrowserRouter } from 'react-router-dom';
+import { BaseLayout } from 'src/shared';
+import { Navigation } from './navigation/Navigation';
 import { I18nProvider, ThemeProvider } from './providers';
 import './styles/global.scss';
 
 function App() {
   return (
-    <I18nProvider>
-      <ThemeProvider>
-        <RouterProvider router={routeConfig} />
-      </ThemeProvider>
-    </I18nProvider>
+    <BrowserRouter>
+      <I18nProvider>
+        <ThemeProvider>
+          <BaseLayout>
+            <Navigation />
+          </BaseLayout>
+        </ThemeProvider>
+      </I18nProvider>
+    </BrowserRouter>
   );
 }
 

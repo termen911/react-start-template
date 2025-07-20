@@ -1,6 +1,6 @@
 import { Button, Result } from 'antd';
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { routes } from 'src/shared/lib';
 import { MainLayout } from 'src/shared/ui/mainLayout';
 

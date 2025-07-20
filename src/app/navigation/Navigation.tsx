@@ -1,8 +1,6 @@
-import { Spin } from 'antd';
-import React, { Suspense, lazy } from 'react';
-import { createBrowserRouter } from 'react-router';
-import NotFoundPage from 'src/pages/notFound/ui/NotFoundPage';
-import { BaseLayout } from 'src/shared/ui/baseLayout';
+import React, { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { SpinLoader } from './SpinLoader/SpinLoader';
 
 // Создаем компонент для обработки ошибок
 class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
@@ -33,25 +31,11 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
   }
 }
 
-// Компонент для загрузки
-const PageLoader = () => (
-  <div
-    style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '200px',
-    }}
-  >
-    <Spin size="large" />
-  </div>
-);
-
 // HOC для обертывания компонентов в Suspense и ErrorBoundary
 const withSuspenseAndErrorBoundary = <P extends object>(Component: React.ComponentType<P>) => {
   const WrappedComponent = (props: P) => (
     <ErrorBoundary>
-      <Suspense fallback={<PageLoader />}>
+      <Suspense fallback={<SpinLoader />}>
         <Component {...props} />
       </Suspense>
     </ErrorBoundary>
@@ -69,6 +53,7 @@ const HomePage = lazy(() => import('src/pages/home/ui/HomePage'));
 const ProfilePage = lazy(() => import('src/pages/profile/ui/ProfilePage'));
 const TransactionsPage = lazy(() => import('src/pages/transactions/ui/TransactionsPage'));
 const TransactionDetailPage = lazy(() => import('src/pages/transactions/ui/TransactionDetailPage'));
+const NotFoundPage = lazy(() => import('src/pages/notFound/ui/NotFoundPage'));
 
 // Создаем обернутые компоненты
 const WrappedHomePage = withSuspenseAndErrorBoundary(HomePage);
@@ -77,31 +62,14 @@ const WrappedTransactionsPage = withSuspenseAndErrorBoundary(TransactionsPage);
 const WrappedTransactionDetailPage = withSuspenseAndErrorBoundary(TransactionDetailPage);
 const WrappedNotFoundPage = withSuspenseAndErrorBoundary(NotFoundPage);
 
-export const routeConfig = createBrowserRouter([
-  {
-    path: '/',
-    element: <BaseLayout />,
-    children: [
-      {
-        index: true,
-        element: <WrappedHomePage />,
-      },
-      {
-        path: '/profile',
-        element: <WrappedProfilePage />,
-      },
-      {
-        path: '/transactions',
-        element: <WrappedTransactionsPage />,
-      },
-      {
-        path: '/transactions/:id',
-        element: <WrappedTransactionDetailPage />,
-      },
-      {
-        path: '*',
-        element: <WrappedNotFoundPage />,
-      },
-    ],
-  },
-]);
+export const Navigation = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<WrappedHomePage />} />
+      <Route path="/profile" element={<WrappedProfilePage />} />
+      <Route path="/transactions" element={<WrappedTransactionsPage />} />
+      <Route path="/transactions/:id" element={<WrappedTransactionDetailPage />} />
+      <Route path="*" element={<WrappedNotFoundPage />} />
+    </Routes>
+  );
+};

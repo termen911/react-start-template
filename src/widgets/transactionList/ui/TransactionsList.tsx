@@ -1,6 +1,6 @@
 import { Col, Empty, Pagination, Row } from 'antd';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useAppTranslation } from 'src/app/providers/i18n';
 import { TransactionCard } from 'src/entities/transaction';
 import { MockAPI } from 'src/shared/api/mock';

@@ -1,11 +1,6 @@
 import { App } from 'antd';
 import React from 'react';
-import { Outlet } from 'react-router';
 
-export const BaseLayout = () => {
-  return (
-    <App>
-      <Outlet />
-    </App>
-  );
+export const BaseLayout = ({ children }: { children: React.ReactNode }) => {
+  return <App>{children}</App>;
 };

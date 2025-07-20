@@ -1,6 +1,6 @@
 import { Dropdown, theme, Typography, type MenuProps } from 'antd';
 import React from 'react';
-import { NavLink, useLocation } from 'react-router';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useAppTranslation } from 'src/app/providers/i18n';
 import { avatarDropdownNavigationConfig } from 'src/shared/config/avatarDropdownNavigation';
 

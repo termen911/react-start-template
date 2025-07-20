@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppTranslation } from 'src/app/providers/i18n';
 import { MainLayout, MainTitleWithTranslation } from 'src/shared/ui';
 import { TransactionDetail } from 'src/widgets/transactionDetail';

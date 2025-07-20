@@ -1,6 +1,6 @@
 import { Button, message, Popconfirm } from 'antd';
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useAppTranslation } from 'src/app/providers/i18n';
 
 interface DeleteTransactionButtonProps {
