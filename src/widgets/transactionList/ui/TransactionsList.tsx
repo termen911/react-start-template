@@ -1,40 +1,86 @@
-import { Col, Empty, Pagination, Row } from 'antd';
-import React, { useState } from 'react';
+import { Alert, Col, Pagination, Row, Spin } from 'antd';
+import { PaginationProps } from 'antd/lib';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAppTranslation } from 'src/app/providers/i18n';
+import { useAppDispatch } from 'src/app/store';
 import { TransactionCard } from 'src/entities/transaction';
-import { MockAPI } from 'src/shared/api/mock';
+import {
+  selectTransactions,
+  selectTransactionsError,
+  selectTransactionsStatus,
+} from 'src/entities/transaction/model/selectors';
+import { setTransaction } from 'src/entities/transaction/model/slice';
+import { fetchTransactionsThunk } from 'src/entities/transaction/model/thunks';
 import { TransactionStats } from './TransactionStats';
 
 export const TransactionsList = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useAppTranslation();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(6);
+  const [pagination, setPagination] = useState<PaginationProps>({
+    current: 1,
+    pageSize: 6,
+    total: 0,
+  });
 
   // Получаем все транзакции из MockAPI
-  const allTransactions = MockAPI.getAllTransactions();
+  const transactions = useSelector(selectTransactions);
+  const transactionStatus = useSelector(selectTransactionsStatus);
+  const transactionError = useSelector(selectTransactionsError);
 
-  if (allTransactions.length === 0) {
-    return <Empty description={t('transaction.empty')} />;
-  }
+  // Вычисляем текущие транзакции для отображения (с пагинацией)
+  const currentTransactions = useMemo(() => {
+    if (!transactions.length) return [];
 
-  // Сортируем по дате (новые сверху)
-  const sortedTransactions = allTransactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    // Сортируем транзакции
+    const sortedTransactions = [...transactions].sort(
+      (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+    );
 
-  // Пагинация
-  const startIndex = (currentPage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const currentTransactions = sortedTransactions.slice(startIndex, endIndex);
+    // Применяем пагинацию
+    const startIndex = (pagination.current - 1) * pagination.pageSize;
+    const endIndex = startIndex + pagination.pageSize;
+
+    return sortedTransactions.slice(startIndex, endIndex);
+  }, [transactions, pagination]);
+
+  useEffect(() => {
+    if (!transactions.length) {
+      dispatch(fetchTransactionsThunk());
+    }
+  }, [transactions, dispatch]);
+
+  // Обновляем total в пагинации когда получены транзакции
+  useEffect(() => {
+    if (transactionStatus === 'fulfilled') {
+      setPagination((prev) => ({
+        ...prev,
+        total: transactions.length,
+      }));
+    }
+  }, [transactionStatus, transactions.length]);
 
   const handleCardClick = (id: string) => {
+    dispatch(setTransaction(transactions.find((transaction) => transaction.id === id) || null));
     navigate(`/transactions/${id}`);
   };
 
+  const handlePaginationChange = (page: number, pageSize?: number) => {
+    setPagination((prev) => ({
+      ...prev,
+      current: page,
+      pageSize: pageSize || prev.pageSize,
+    }));
+  };
+
   return (
-    <div>
+    <Spin spinning={transactionStatus === 'loading'}>
+      {transactionError && <Alert message={transactionError} type="error" showIcon />}
+
       {/* Статистика */}
-      <TransactionStats transactions={allTransactions} />
+      <TransactionStats transactions={transactions} />
 
       {/* Сетка карточек транзакций */}
       <Row gutter={[16, 16]}>
@@ -46,23 +92,26 @@ export const TransactionsList = () => {
       </Row>
 
       {/* Пагинация */}
-      {allTransactions.length > pageSize && (
+      {transactions.length > pagination.pageSize && (
         <div style={{ textAlign: 'center', marginTop: '32px' }}>
           <Pagination
-            current={currentPage}
-            total={allTransactions.length}
-            pageSize={pageSize}
-            onChange={setCurrentPage}
+            current={pagination.current}
+            total={pagination.total}
+            pageSize={pagination.pageSize}
+            onChange={handlePaginationChange}
             showSizeChanger={true}
-            onShowSizeChange={(page, size) => setPageSize(size)}
-            pageSizeOptions={[6, 12, 18, 24, 100]}
+            pageSizeOptions={['6', '12', '18', '24', '100']}
             showQuickJumper={false}
             showTotal={(total, range) =>
-              t('transaction.pagination.titleOfPage', { viewed: range[0], all: range[1], total })
+              t('transaction.pagination.titleOfPage', {
+                viewed: range[0],
+                all: range[1],
+                total,
+              })
             }
           />
         </div>
       )}
-    </div>
+    </Spin>
   );
 };

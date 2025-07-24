@@ -3,8 +3,9 @@ import { Avatar, Card, Col, Row, Space, Statistic, Tag, theme, Typography } from
 import React from 'react';
 import { useAppTranslation } from 'src/app/providers/i18n';
 import { getTransactionTypeConfig } from 'src/pages/transactions/ui/utils/transactionConfig';
-import { MockAPI } from 'src/shared/api/mock';
-import { TransactionType } from 'src/shared/api/mock/types';
+import { TransactionType } from 'src/shared/types';
+import { useSelector } from 'react-redux';
+import { selectTransaction } from 'src/entities/transaction/model/selectors';
 
 const { Title } = Typography;
 
@@ -16,7 +17,7 @@ export const TransactionMainCard: React.FC<TransactionMainCardProps> = ({ transa
   const { t } = useAppTranslation();
   const { token } = theme.useToken();
 
-  const transaction = MockAPI.getTransactionById(transactionId);
+  const transaction = useSelector(selectTransaction);
 
   if (!transaction) return null;
 

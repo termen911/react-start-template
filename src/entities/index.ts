@@ -1,2 +1,2 @@
-// Transaction entity
+export * from './session';
 export * from './transaction';

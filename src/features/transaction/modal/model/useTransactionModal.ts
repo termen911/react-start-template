@@ -1,9 +1,46 @@
 import { message } from 'antd';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useAppTranslation } from 'src/app/providers/i18n';
-import { CreateTransactionData, MockAPI, UpdateTransactionData } from 'src/shared/api/mock';
-import { TransactionFormData } from '../../form';
+import { useAppDispatch } from 'src/app/store';
+import { selectTransaction, selectTransactions } from 'src/entities/transaction/model/selectors';
+import { fetchTransactionByIdThunk } from 'src/entities/transaction/model/thunks';
+import { Transaction } from 'src/shared';
 import { TransactionModalMode, UseTransactionModalResult } from './types';
+import { addTransaction, updateTransaction } from 'src/entities/transaction/model/slice';
+
+// Функция для парсинга хеша
+const parseHash = (hash: string) => {
+  const cleanHash = hash.replace('#', '');
+
+  if (cleanHash === 'create') {
+    return { mode: 'create' as TransactionModalMode, id: null };
+  }
+
+  const editMatch = cleanHash.match(/^edit\/(.+)$/);
+  if (editMatch) {
+    return { mode: 'edit' as TransactionModalMode, id: editMatch[1] };
+  }
+
+  return null;
+};
+
+// Функция для обновления хеша
+const updateHash = (mode: TransactionModalMode, id?: string) => {
+  if (mode === 'create') {
+    window.location.hash = 'create';
+  } else if (mode === 'edit' && id) {
+    window.location.hash = `edit/${id}`;
+  }
+};
+
+// Функция для удаления хеша
+const clearHash = () => {
+  if (window.location.hash) {
+    const url = window.location.pathname + window.location.search;
+    window.history.replaceState({}, document.title, url);
+  }
+};
 
 export const useTransactionModal = (): UseTransactionModalResult => {
   const { t } = useAppTranslation();
@@ -11,70 +48,71 @@ export const useTransactionModal = (): UseTransactionModalResult => {
   const [modalMode, setModalMode] = useState<TransactionModalMode>('create');
   const [loading, setLoading] = useState(false);
   const [editingTransactionId, setEditingTransactionId] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
 
-  // Функция для парсинга хеша
-  const parseHash = (hash: string) => {
-    if (hash === '#create') {
-      return { mode: 'create' as TransactionModalMode, id: null };
-    }
+  const transactionFromStore = useSelector(selectTransaction);
+  const transactions = useSelector(selectTransactions);
 
-    const editMatch = hash.match(/^#edit\/(.+)$/);
-    if (editMatch) {
-      return { mode: 'edit' as TransactionModalMode, id: editMatch[1] };
-    }
+  // Обработчик открытия модального окна для редактирования
+  const handleOpenEdit = useCallback(
+    async (transactionId: string) => {
+      setLoading(true);
+      try {
+        // Проверяем, есть ли транзакция в сторе
+        const transactionInStore = transactions.find((t) => t.id === transactionId);
 
-    return null;
-  };
+        if (!transactionInStore) {
+          // Если транзакции нет в сторе, загружаем её
+          await dispatch(fetchTransactionByIdThunk(transactionId));
+        }
 
-  // Функция для обновления хеша
-  const updateHash = (mode: TransactionModalMode, id?: string) => {
-    if (mode === 'create') {
-      window.location.hash = 'create';
-    } else if (mode === 'edit' && id) {
-      window.location.hash = `edit/${id}`;
-    }
-  };
+        setModalMode('edit');
+        setEditingTransactionId(transactionId);
+        setIsModalOpen(true);
+        updateHash('edit', transactionId);
+      } catch (error) {
+        message.error(t('transaction.modal.error.notFound'));
+        clearHash();
+      } finally {
+        setLoading(false);
+      }
+    },
+    [dispatch, transactions, t]
+  );
 
-  // Функция для удаления хеша
-  const clearHash = () => {
-    if (window.location.hash) {
-      // Удаляем хеш без перезагрузки страницы
-      const url = window.location.pathname + window.location.search;
-      window.history.replaceState({}, document.title, url);
-    }
-  };
+  // Закрытие модального окна
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    setEditingTransactionId(null);
+    clearHash();
 
-  // Эффект для отслеживания изменений хеша при загрузке и navigation
+    // Небольшая задержка перед сбросом состояния для плавной анимации
+    setTimeout(() => {
+      setModalMode('create');
+    }, 300);
+  }, []);
+
+  // Обработчик открытия модального окна для создания
+  const handleOpenCreate = useCallback(() => {
+    setModalMode('create');
+    setEditingTransactionId(null);
+    setIsModalOpen(true);
+    updateHash('create');
+  }, []);
+
+  // Эффект для отслеживания изменений хеша
   useEffect(() => {
     const handleHashChange = () => {
-      const hash = window.location.hash;
-      const parsedHash = parseHash(hash);
+      const parsedHash = parseHash(window.location.hash);
 
       if (parsedHash) {
         if (parsedHash.mode === 'create') {
-          setModalMode('create');
-          setEditingTransactionId(null);
-          setIsModalOpen(true);
+          handleOpenCreate();
         } else if (parsedHash.mode === 'edit' && parsedHash.id) {
-          // Проверяем, существует ли транзакция с таким ID
-          const transaction = MockAPI.getTransactionById(parsedHash.id);
-          if (transaction) {
-            setModalMode('edit');
-            setEditingTransactionId(parsedHash.id);
-            setIsModalOpen(true);
-          } else {
-            // Если транзакция не найдена, показываем ошибку и удаляем хеш
-            message.error(t('transaction.modal.error.notFound'));
-            clearHash();
-          }
+          handleOpenEdit(parsedHash.id);
         }
-      } else if (hash === '') {
-        // Если хеш удален, закрываем модальное окно
-        setIsModalOpen(false);
-        setEditingTransactionId(null);
-        setTimeout(() => {
-          setModalMode('create');
-        }, 300);
+      } else {
+        handleCloseModal();
       }
     };
 
@@ -87,112 +125,80 @@ export const useTransactionModal = (): UseTransactionModalResult => {
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
     };
-  }, [t]);
+  }, [handleCloseModal, handleOpenCreate, handleOpenEdit]);
 
-  // Открытие модального окна для создания транзакции
-  const openCreateModal = () => {
-    setModalMode('create');
-    setEditingTransactionId(null);
-    setIsModalOpen(true);
-    updateHash('create');
-  };
+  // Получаем текущую транзакцию для редактирования
+  const getCurrentTransaction = useCallback(() => {
+    if (modalMode === 'edit' && editingTransactionId) {
+      // Сначала ищем в основном списке транзакций
+      const transactionInList = transactions.find((t) => t.id === editingTransactionId);
+      if (transactionInList) return transactionInList;
 
-  // Открытие модального окна для редактирования транзакции
-  const openEditModal = (transactionId: string) => {
-    setModalMode('edit');
-    setEditingTransactionId(transactionId);
-    setIsModalOpen(true);
-    updateHash('edit', transactionId);
-  };
-
-  // Закрытие модального окна
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setEditingTransactionId(null);
-    clearHash();
-    // Небольшая задержка перед сбросом состояния для плавной анимации
-    setTimeout(() => {
-      setModalMode('create');
-    }, 300);
-  };
+      // Если не нашли в списке, проверяем отдельную загруженную транзакцию
+      if (transactionFromStore?.id === editingTransactionId) {
+        return transactionFromStore;
+      }
+    }
+    return null;
+  }, [modalMode, editingTransactionId, transactions, transactionFromStore]);
 
   // Обработчик отправки формы
-  const handleSubmit = async (data: TransactionFormData): Promise<void> => {
-    setLoading(true);
+  const handleSubmit = useCallback(
+    async (data: Transaction): Promise<void> => {
+      setLoading(true);
 
-    try {
-      // Имитируем задержку API запроса
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      try {
+        if (modalMode === 'create') {
+          // Создаем новую транзакцию
+          const createData: Transaction = {
+            ...data,
+            id: `tx-${Date.now()}`,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          };
 
-      if (modalMode === 'create') {
-        // Создаем новую транзакцию через API
-        const createData: CreateTransactionData = {
-          type: data.type,
-          amount: data.amount,
-          title: data.title,
-          description: data.description,
-          categoryName: data.categoryName,
-          categoryIcon: data.categoryIcon,
-          categoryColor: data.categoryColor,
-          date: data.date,
-          tags: data.tags,
-        };
+          await dispatch(addTransaction(createData));
+          message.success(t('transaction.modal.messages.createSuccess'));
+        } else if (modalMode === 'edit' && editingTransactionId) {
 
-        const newTransaction = MockAPI.createTransaction(createData);
-        console.log('Создана новая транзакция:', newTransaction);
-        message.success(t('transaction.modal.messages.createSuccess'));
-      } else if (modalMode === 'edit' && editingTransactionId) {
-        // Обновляем существующую транзакцию через API
-        const updateData: UpdateTransactionData = {
-          id: editingTransactionId,
-          type: data.type,
-          amount: data.amount,
-          title: data.title,
-          description: data.description,
-          categoryName: data.categoryName,
-          categoryIcon: data.categoryIcon,
-          categoryColor: data.categoryColor,
-          date: data.date,
-          tags: data.tags,
-        };
+          // Обновляем существующую транзакцию
+          const updateData: Transaction = {
+            ...data,
+            id: editingTransactionId,
+            updatedAt: new Date().toISOString(),
+          };
+          console.log(33, updateData);
 
-        const updatedTransaction = MockAPI.updateTransaction(editingTransactionId, updateData);
-
-        if (updatedTransaction) {
-          console.log('Обновлена транзакция:', updatedTransaction);
+          await dispatch(updateTransaction(updateData));
           message.success(t('transaction.modal.messages.updateSuccess'));
-        } else {
-          throw new Error('Транзакция не найдена');
         }
+
+        handleCloseModal();
+      } catch (error) {
+        console.error('Ошибка при сохранении транзакции:', error);
+
+        const errorMessage =
+          modalMode === 'create'
+            ? t('transaction.modal.messages.createError')
+            : t('transaction.modal.messages.updateError');
+
+        message.error(errorMessage);
+      } finally {
+        setLoading(false);
       }
-
-      closeModal();
-
-      // Принудительно обновляем страницу для отображения изменений
-      // В реальном приложении лучше использовать state management или callback
-      window.location.reload();
-    } catch (error) {
-      console.error('Ошибка при сохранении транзакции:', error);
-
-      const errorMessage =
-        modalMode === 'create'
-          ? t('transaction.modal.messages.createError')
-          : t('transaction.modal.messages.updateError');
-
-      message.error(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [modalMode, editingTransactionId, dispatch, handleCloseModal, t]
+  );
 
   return {
     isModalOpen,
     modalMode,
     loading,
     editingTransactionId,
-    openCreateModal,
-    openEditModal,
-    closeModal,
+    currentTransaction: getCurrentTransaction(),
+    openCreateModal: handleOpenCreate,
+    openEditModal: handleOpenEdit,
+    closeModal: handleCloseModal,
     handleSubmit,
   };
 };

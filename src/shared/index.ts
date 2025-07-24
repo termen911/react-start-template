@@ -8,4 +8,4 @@ export * from './config';
 export * from './lib';
 
 // Types
-export { } from './types';
+export * from './types';

@@ -1,16 +1,16 @@
 import { theme } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useAppTranslation } from 'src/app/providers/i18n';
-import { MockAPI } from 'src/shared/api/mock';
-import { TransactionType } from 'src/shared/api/mock/types';
+import { TransactionType } from 'src/shared/types';
 import { getTransactionTypeConfig } from '../utils/transactionConfig';
+import { fetchTransactionById } from 'src/entities';
 
-export const useTransactionDetail = (id: string | undefined) => {
+export const useTransactionDetail = async (id: string | undefined) => {
   const { t, currentLang } = useAppTranslation();
   const { token } = theme.useToken();
   const navigate = useNavigate();
 
-  const transaction = id ? MockAPI.getTransactionById(id) : undefined;
+  const transaction = id ? await fetchTransactionById(id) : undefined;
 
   const typeConfig = transaction ? getTransactionTypeConfig(transaction.type, token, t) : null;
   const displayAmount = transaction ? Math.abs(transaction.amount).toLocaleString('ru-RU') : '0';

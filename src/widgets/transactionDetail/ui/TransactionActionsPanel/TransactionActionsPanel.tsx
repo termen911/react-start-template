@@ -14,11 +14,11 @@ interface TransactionActionsPanelProps {
 
 export const TransactionActionsPanel: React.FC<TransactionActionsPanelProps> = ({ transactionId }) => {
   const { t } = useAppTranslation();
-  const { isModalOpen, modalMode, loading, editingTransactionId, openEditModal, closeModal, handleSubmit } =
+  const { isModalOpen, modalMode, loading, currentTransaction, openEditModal, closeModal, handleSubmit } =
     useTransactionModal();
 
-  const handleEditClick = (id: string) => {
-    openEditModal(id);
+  const handleEditClick = () => {
+    openEditModal(transactionId);
   };
 
   return (
@@ -32,10 +32,10 @@ export const TransactionActionsPanel: React.FC<TransactionActionsPanelProps> = (
 
       <TransactionModal
         open={isModalOpen}
-        onClose={closeModal}
+        onCancel={closeModal}
         onSubmit={handleSubmit}
         mode={modalMode}
-        transactionId={editingTransactionId || undefined}
+        transaction={currentTransaction}
         loading={loading}
       />
     </>

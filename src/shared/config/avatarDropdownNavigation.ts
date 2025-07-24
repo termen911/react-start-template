@@ -4,12 +4,14 @@ export const avatarDropdownNavigationConfig = [
     path: '/profile',
     replace: true,
     disabled: false,
+    isLogout: false,
   },
   {
     label: 'navigation.logout' as const,
-    path: '/logout',
+    path: '/',
     replace: true,
-    disabled: true,
+    disabled: false,
+    isLogout: true,
   },
 ] as const;
 

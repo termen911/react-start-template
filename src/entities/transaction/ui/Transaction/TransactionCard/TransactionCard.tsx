@@ -1,7 +1,7 @@
 import { Avatar, Badge, Card, Space, Tag, Typography } from 'antd';
 import React, { FC } from 'react';
 import { useAppTranslation } from 'src/app/providers/i18n';
-import { Transaction, TransactionType } from 'src/shared/api/mock/types';
+import { Transaction, TransactionType } from 'src/shared/types/transaction';
 
 const { Text, Title } = Typography;
 

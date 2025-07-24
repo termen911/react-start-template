@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { ProtectedRoute } from './ProtectedRoute/ProtectedRoute';
 import { SpinLoader } from './SpinLoader/SpinLoader';
 
 // Создаем компонент для обработки ошибок
@@ -48,27 +49,32 @@ const withSuspenseAndErrorBoundary = <P extends object>(Component: React.Compone
   return WrappedComponent;
 };
 
-// Lazy loading компонентов
-const HomePage = lazy(() => import('src/pages/home/ui/HomePage'));
-const ProfilePage = lazy(() => import('src/pages/profile/ui/ProfilePage'));
-const TransactionsPage = lazy(() => import('src/pages/transactions/ui/TransactionsPage'));
-const TransactionDetailPage = lazy(() => import('src/pages/transactions/ui/TransactionDetailPage'));
-const NotFoundPage = lazy(() => import('src/pages/notFound/ui/NotFoundPage'));
-
 // Создаем обернутые компоненты
-const WrappedHomePage = withSuspenseAndErrorBoundary(HomePage);
-const WrappedProfilePage = withSuspenseAndErrorBoundary(ProfilePage);
-const WrappedTransactionsPage = withSuspenseAndErrorBoundary(TransactionsPage);
-const WrappedTransactionDetailPage = withSuspenseAndErrorBoundary(TransactionDetailPage);
-const WrappedNotFoundPage = withSuspenseAndErrorBoundary(NotFoundPage);
-
+const WrappedHomePage = withSuspenseAndErrorBoundary(lazy(() => import('src/pages/home/ui/HomePage')));
+const WrappedProfilePage = withSuspenseAndErrorBoundary(lazy(() => import('src/pages/profile/ui/ProfilePage')));
+const WrappedTransactionsPage = withSuspenseAndErrorBoundary(
+  lazy(() => import('src/pages/transactions/ui/TransactionsPage'))
+);
+const WrappedTransactionDetailPage = withSuspenseAndErrorBoundary(
+  lazy(() => import('src/pages/transactions/ui/TransactionDetailPage'))
+);
+const WrappedNotFoundPage = withSuspenseAndErrorBoundary(lazy(() => import('src/pages/notFound/ui/NotFoundPage')));
+const WrappedLoginPage = withSuspenseAndErrorBoundary(lazy(() => import('src/pages/login/ui/LoginPage')));
 export const Navigation = () => {
   return (
     <Routes>
       <Route path="/" element={<WrappedHomePage />} />
-      <Route path="/profile" element={<WrappedProfilePage />} />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <WrappedProfilePage />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/transactions" element={<WrappedTransactionsPage />} />
       <Route path="/transactions/:id" element={<WrappedTransactionDetailPage />} />
+      <Route path="/login" element={<WrappedLoginPage />} />
       <Route path="*" element={<WrappedNotFoundPage />} />
     </Routes>
   );

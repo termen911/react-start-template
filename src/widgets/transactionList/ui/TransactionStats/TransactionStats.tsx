@@ -1,7 +1,7 @@
 import { Card, Col, Row, Typography } from 'antd';
 import React, { FC } from 'react';
 import { useAppTranslation } from 'src/app/providers/i18n';
-import { Transaction, TransactionType } from 'src/shared/api/mock/types';
+import { Transaction, TransactionType } from 'src/shared/types';
 
 const { Text, Title } = Typography;
 
