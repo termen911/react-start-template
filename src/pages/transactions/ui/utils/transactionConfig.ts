@@ -1,4 +1,4 @@
-import { TransactionType } from 'src/shared/api/mock/types';
+import { TransactionType } from 'src/shared';
 
 export interface TransactionTypeConfig {
   color: string;

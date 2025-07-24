@@ -1,4 +1,4 @@
-import { Flex, message, Typography } from 'antd';
+import { Flex, message } from 'antd';
 import React, { useState } from 'react';
 import { useAppTranslation } from 'src/app/providers/i18n';
 import { ProfileForm } from 'src/features/profileForm';
@@ -10,7 +10,6 @@ const ProfilePage = () => {
   const { t } = useAppTranslation();
   const [loading, setLoading] = useState(false);
 
-  // Пример начальных данных (в реальном проекте будут приходить с сервера)
   const defaultValues: Partial<ProfileFormData> = {
     nickname: '',
     about: '',

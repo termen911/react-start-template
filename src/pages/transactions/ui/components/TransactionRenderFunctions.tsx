@@ -16,7 +16,7 @@ import {
 import React from 'react';
 import { formatDateFull } from 'src/shared/lib/utils/date';
 
-import { Transaction } from 'src/shared/api/mock';
+import { Transaction } from 'src/shared/types';
 import { TransactionTypeConfig } from '../utils/transactionConfig';
 
 const { Title, Text, Paragraph } = Typography;

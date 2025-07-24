@@ -1,6 +1,3 @@
-export type {
-  TransactionBrief as TransactionBriefType,
-  TransactionFull as TransactionFullType,
-  Transaction as TransactionType,
-} from './model/types';
+export * from './api';
+export * from './model';
 export { TransactionCard } from './ui/Transaction';

@@ -18,11 +18,11 @@ import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppTranslation } from 'src/app/providers/i18n';
-import { TransactionType } from 'src/shared/api/mock';
 
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES, TRANSFER_CATEGORIES } from '../model/constants';
 import { CategoryOption, TransactionFormData, TransactionFormProps } from '../model/types';
 import { createTransactionValidationRules } from '../model/validation';
+import { TransactionType } from 'src/shared/types';
 
 const { TextArea } = Input;
 const { Text } = Typography;

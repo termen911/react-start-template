@@ -1,32 +1,22 @@
 import { Modal } from 'antd';
 import React, { useMemo } from 'react';
 import { useAppTranslation } from 'src/app/providers/i18n';
-import { MockAPI, Transaction } from 'src/shared/api/mock';
-import { TransactionForm, TransactionFormData } from '../../form';
+import { Transaction } from 'src/shared/types';
+import { TransactionForm } from '../../form';
 import { TransactionModalProps } from '../model/types';
 
 export const TransactionModal: React.FC<TransactionModalProps> = ({
   open,
-  onClose,
+  onCancel,
   onSubmit,
   mode,
-  transactionId,
+  transaction,
   loading = false,
 }) => {
   const { t } = useAppTranslation();
 
-  // Получаем данные транзакции для редактирования
-  const transaction: Transaction | undefined = useMemo(() => {
-    if (mode === 'edit' && transactionId) {
-      return MockAPI.getTransactionById(transactionId);
-    }
-    return undefined;
-  }, [mode, transactionId]);
-
-  // Заголовок модального окна
   const modalTitle = mode === 'create' ? t('transaction.modal.create.title') : t('transaction.modal.edit.title');
 
-  // Формируем defaultValues для формы при редактировании
   const defaultValues = useMemo(() => {
     if (mode === 'edit' && transaction) {
       return {
@@ -37,22 +27,20 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
         categoryName: transaction.categoryName,
         categoryIcon: transaction.categoryIcon,
         categoryColor: transaction.categoryColor,
-        date: transaction.date.split('T')[0], // Преобразуем ISO дату в YYYY-MM-DD
+        date: transaction.date.split('T')[0],
         tags: transaction.tags || [],
       };
     }
     return {};
   }, [mode, transaction]);
 
-  // Обработчик отправки формы
-  const handleFormSubmit = (data: TransactionFormData) => {
+  const handleFormSubmit = (data: Transaction) => {
     onSubmit(data);
   };
 
-  // Если редактируем, но транзакция не найдена
-  if (mode === 'edit' && transactionId && !transaction) {
+  if (mode === 'edit' && !transaction) {
     return (
-      <Modal title={t('transaction.modal.error.title')} open={open} onCancel={onClose} footer={null} centered>
+      <Modal title={t('transaction.modal.error.title')} open={open} onCancel={onCancel} footer={null} centered>
         <p>{t('transaction.modal.error.notFound')}</p>
       </Modal>
     );
@@ -62,7 +50,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
     <Modal
       title={modalTitle}
       open={open}
-      onCancel={onClose}
+      onCancel={onCancel}
       footer={null}
       width={800}
       centered

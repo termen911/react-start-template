@@ -2,13 +2,16 @@ import { UserOutlined } from '@ant-design/icons';
 import { Button, Card, Form, Input, Popconfirm, Space } from 'antd';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { useAppTranslation } from 'src/app/providers/i18n/useAppTranslation';
+import { selectProfileUser } from 'src/entities/profile/model/selectors';
 import type { ProfileFormData, ProfileFormProps } from '../model/types';
 
 const { TextArea } = Input;
 
 export const ProfileForm: React.FC<ProfileFormProps> = ({ onSubmit, initialData = {}, loading = false }) => {
   const { t } = useAppTranslation();
+  const user = useSelector(selectProfileUser);
 
   const {
     control,
@@ -61,6 +64,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onSubmit, initialData 
                 prefix={<UserOutlined />}
                 placeholder={t('profile.nickname.placeholder')}
                 allowClear
+                value={user?.nickname}
               />
             )}
           />
@@ -89,6 +93,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onSubmit, initialData 
                 showCount
                 maxLength={500}
                 allowClear
+                value={user?.about}
               />
             )}
           />

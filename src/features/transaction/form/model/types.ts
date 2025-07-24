@@ -1,4 +1,4 @@
-import { TransactionType } from 'src/shared/api/mock';
+import { TransactionType } from 'src/shared/types';
 
 // Данные формы для создания/редактирования транзакции
 export interface TransactionFormData {

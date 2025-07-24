@@ -1,7 +1,8 @@
 import { Card, Typography } from 'antd';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useAppTranslation } from 'src/app/providers/i18n';
-import { MockAPI } from 'src/shared/api/mock';
+import { selectTransaction } from 'src/entities/transaction/model/selectors';
 
 const { Paragraph } = Typography;
 
@@ -12,7 +13,7 @@ interface TransactionDescriptionCardProps {
 export const TransactionDescriptionCard: React.FC<TransactionDescriptionCardProps> = ({ transactionId }) => {
   const { t } = useAppTranslation();
 
-  const transaction = MockAPI.getTransactionById(transactionId);
+  const transaction = useSelector(selectTransaction);
 
   if (!transaction || !transaction.description) return null;
 

@@ -1,9 +1,6 @@
-import { Transaction, TransactionType } from './types';
+import { TransactionType } from 'src/shared';
 
-export const transactions: Transaction[] = [
-  // Транзакции за последние 3 месяца
-
-  // Доходы - Зарплата Александра
+export const transactions = [
   {
     id: 'tx-1',
     type: TransactionType.INCOME,
@@ -34,7 +31,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-03-01T10:00:00.000Z',
   },
 
-  // Фриланс доходы
   {
     id: 'tx-3',
     type: TransactionType.INCOME,
@@ -51,7 +47,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-03-15T14:30:00.000Z',
   },
 
-  // Расходы на еду
   {
     id: 'tx-4',
     type: TransactionType.EXPENSE,
@@ -81,7 +76,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-04-09T13:45:00.000Z',
   },
 
-  // Транспортные расходы
   {
     id: 'tx-6',
     type: TransactionType.EXPENSE,
@@ -97,7 +91,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-04-08T08:15:00.000Z',
   },
 
-  // Коммунальные платежи
   {
     id: 'tx-7',
     type: TransactionType.EXPENSE,
@@ -114,7 +107,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-04-05T09:30:00.000Z',
   },
 
-  // Развлечения
   {
     id: 'tx-8',
     type: TransactionType.EXPENSE,
@@ -130,7 +122,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-04-07T19:00:00.000Z',
   },
 
-  // Перевод между счетами
   {
     id: 'tx-9',
     type: TransactionType.TRANSFER,
@@ -146,7 +137,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-04-02T16:00:00.000Z',
   },
 
-  // Транзакции для Марии Ивановой
   {
     id: 'tx-10',
     type: TransactionType.INCOME,
@@ -190,7 +180,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-04-09T08:45:00.000Z',
   },
 
-  // Инвестиционные доходы
   {
     id: 'tx-13',
     type: TransactionType.INCOME,
@@ -206,7 +195,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-03-28T12:00:00.000Z',
   },
 
-  // Медицинские расходы
   {
     id: 'tx-14',
     type: TransactionType.EXPENSE,
@@ -222,7 +210,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-04-03T15:20:00.000Z',
   },
 
-  // Транзакции для Дмитрия Сидорова
   {
     id: 'tx-15',
     type: TransactionType.INCOME,
@@ -238,7 +225,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-04-01T10:00:00.000Z',
   },
 
-  // Покупки и шопинг
   {
     id: 'tx-16',
     type: TransactionType.EXPENSE,
@@ -254,7 +240,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-04-06T14:15:00.000Z',
   },
 
-  // Образование
   {
     id: 'tx-17',
     type: TransactionType.EXPENSE,
@@ -270,7 +255,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-03-25T11:30:00.000Z',
   },
 
-  // Криптовалютные операции
   {
     id: 'tx-18',
     type: TransactionType.INCOME,
@@ -286,7 +270,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-04-04T02:15:00.000Z',
   },
 
-  // Операции в евро
   {
     id: 'tx-19',
     type: TransactionType.EXPENSE,
@@ -302,7 +285,6 @@ export const transactions: Transaction[] = [
     updatedAt: '2024-03-30T16:45:00.000Z',
   },
 
-  // Дополнительные разнообразные транзакции
   {
     id: 'tx-20',
     type: TransactionType.INCOME,
