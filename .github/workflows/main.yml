@@ -30,10 +30,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Инициализируем MSW
-      - name: Initialize MSW
-        run: npx msw init dist --save
-
       # Запускаем тесты и линтер
       - name: Run tests and linter
         run: npm run lint && npm test
@@ -41,6 +37,10 @@ jobs:
       #Собираем приложение
       - name: Build Application
         run: npm run build
+
+      # Инициализируем MSW
+      - name: Initialize MSW
+        run: npx msw init dist --save 
 
       - name: Check dist folder contents
         run: ls -la dist
