@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { Transaction } from 'src/shared';
 import { fetchTransactionByIdThunk, fetchTransactionsThunk } from './thunks';
 import { TransactionState } from './types';
