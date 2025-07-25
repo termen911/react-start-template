@@ -10,7 +10,7 @@ import './styles/global.scss';
 
 function App() {
   return (
-    <BrowserRouter basename="/react-start-template/">
+    <BrowserRouter>
       <Provider store={store}>
         <I18nProvider>
           <ThemeProvider>
