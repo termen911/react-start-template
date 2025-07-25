@@ -1,4 +1,4 @@
-import { TransactionType } from 'src/shared';
+import { TransactionType } from 'src/shared/types';
 
 export const transactions = [
   {
