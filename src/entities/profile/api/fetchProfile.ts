@@ -1,7 +1,15 @@
-import { Profile } from 'src/shared';
-import { baseApi } from 'src/shared/api/apiClients/baseApi';
+import { Profile, UserRole } from 'src/shared';
 
 export const fetchProfile = async (): Promise<Profile> => {
-  const response = await baseApi.get<Profile>('/profile');
-  return response.data;
+  return await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        id: '1',
+        nickname: 'admin',
+        about:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        role: UserRole.ADMIN,
+      });
+    }, 300);
+  });
 };
