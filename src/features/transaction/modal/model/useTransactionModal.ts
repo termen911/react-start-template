@@ -160,7 +160,6 @@ export const useTransactionModal = (): UseTransactionModalResult => {
           await dispatch(addTransaction(createData));
           message.success(t('transaction.modal.messages.createSuccess'));
         } else if (modalMode === 'edit' && editingTransactionId) {
-
           // Обновляем существующую транзакцию
           const updateData: Transaction = {
             ...data,

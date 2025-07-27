@@ -2,7 +2,7 @@ import axios from 'axios';
 import { storage, storageKeys } from 'src/shared/lib/storage';
 
 export const baseApi = axios.create({
-  baseURL: '/api',
+  baseURL: 'http://19429ba06ff2.vps.myjino.ru/api',
   headers: {
     'Content-Type': 'application/json',
   },
