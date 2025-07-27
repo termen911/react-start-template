@@ -1,36 +1,8 @@
 import React, { lazy, Suspense } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { ErrorBoundary } from './ErrorBoundary/ErrorBoundary';
 import { ProtectedRoute } from './ProtectedRoute/ProtectedRoute';
 import { SpinLoader } from './SpinLoader/SpinLoader';
-
-// Создаем компонент для обработки ошибок
-class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
-  constructor(props: { children: React.ReactNode }) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(): { hasError: boolean } {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('ErrorBoundary поймал ошибку:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div style={{ padding: '20px', textAlign: 'center' }}>
-          <h2>Что-то пошло не так.</h2>
-          <button onClick={() => this.setState({ hasError: false })}>Попробовать снова</button>
-        </div>
-      );
-    }
-
-    return this.props.children;
-  }
-}
 
 // HOC для обертывания компонентов в Suspense и ErrorBoundary
 const withSuspenseAndErrorBoundary = <P extends object>(Component: React.ComponentType<P>) => {
@@ -60,6 +32,8 @@ const WrappedTransactionDetailPage = withSuspenseAndErrorBoundary(
 );
 const WrappedNotFoundPage = withSuspenseAndErrorBoundary(lazy(() => import('src/pages/notFound/ui/NotFoundPage')));
 const WrappedLoginPage = withSuspenseAndErrorBoundary(lazy(() => import('src/pages/login/ui/LoginPage')));
+const WrappedSignupPage = withSuspenseAndErrorBoundary(lazy(() => import('src/pages/signup/ui/SignupPage')));
+
 export const Navigation = () => {
   return (
     <Routes>
@@ -72,9 +46,24 @@ export const Navigation = () => {
           </ProtectedRoute>
         }
       />
-      <Route path="/transactions" element={<WrappedTransactionsPage />} />
-      <Route path="/transactions/:id" element={<WrappedTransactionDetailPage />} />
+      <Route
+        path="/transactions"
+        element={
+          <ProtectedRoute>
+            <WrappedTransactionsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/transactions/:id"
+        element={
+          <ProtectedRoute>
+            <WrappedTransactionDetailPage />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/login" element={<WrappedLoginPage />} />
+      <Route path="/signup" element={<WrappedSignupPage />} />
       <Route path="*" element={<WrappedNotFoundPage />} />
     </Routes>
   );

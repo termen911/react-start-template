@@ -1,4 +1,5 @@
 import { Profile, SliceStatus } from 'src/shared';
+import { ServerErrors } from 'src/shared/api/types/error';
 
 export interface LoginResponse {
   token: string;
@@ -10,5 +11,5 @@ export interface SessionState {
   user: Profile | null;
   lastRedirect: string | null;
   status: SliceStatus;
-  error: string | null;
+  error: string | ServerErrors | null;
 }

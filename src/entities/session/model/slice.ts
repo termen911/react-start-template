@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { ServerErrors } from 'src/shared/api/types/error';
 import { storage, storageKeys } from 'src/shared/lib/storage';
-import { loginThunk, logoutThunk } from './thunks';
+import { loginThunk, logoutThunk, signupThunk } from './thunks';
 import type { SessionState } from './types';
 
 const initialState: SessionState = {
@@ -52,6 +53,19 @@ const sessionSlice = createSlice({
         state.status = 'fulfilled';
       })
       .addCase(logoutThunk.rejected, (state, action: PayloadAction<string>) => {
+        state.status = 'rejected';
+        state.error = action.payload;
+      })
+      .addCase(signupThunk.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(signupThunk.fulfilled, (state, action: PayloadAction<string>) => {
+        state.token = action.payload;
+        storage.set(storageKeys.AUTH_TOKEN, action.payload);
+        state.status = 'fulfilled';
+      })
+      .addCase(signupThunk.rejected, (state, action: PayloadAction<ServerErrors>) => {
         state.status = 'rejected';
         state.error = action.payload;
       });

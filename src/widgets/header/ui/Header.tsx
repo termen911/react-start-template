@@ -17,6 +17,8 @@ export const Header = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
+
   return (
     <Layout.Header>
       <Flex gap={16} align="center">
@@ -26,19 +28,23 @@ export const Header = () => {
           <Flex gap={16} align="center">
             <LangSwitcher />
             <ThemeSwitcherButton />
-            {isAuthenticated ? (
-              <UserAvatar />
-            ) : (
-              <Button
-                type="primary"
-                onClick={() => {
-                  dispatch(setLastRedirect(location.pathname));
-                  navigate('/login');
-                }}
-              >
-                Login
-              </Button>
-            )}
+            {!isAuthPage ? (
+              <>
+                {isAuthenticated ? (
+                  <UserAvatar />
+                ) : (
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      dispatch(setLastRedirect(location.pathname));
+                      navigate('/login');
+                    }}
+                  >
+                    Login
+                  </Button>
+                )}
+              </>
+            ) : null}
           </Flex>
         </Space>
       </Flex>

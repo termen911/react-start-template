@@ -5,7 +5,7 @@ import { useAppTranslation } from 'src/app/providers/i18n';
 import { formatDateFull } from 'src/shared/lib/utils/date';
 import { useSelector } from 'react-redux';
 import { selectTransaction } from 'src/entities/transaction/model/selectors';
-    
+
 const { Text } = Typography;
 
 interface TransactionDetailsPanelProps {
