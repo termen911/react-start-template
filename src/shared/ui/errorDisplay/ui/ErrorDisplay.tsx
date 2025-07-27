@@ -4,7 +4,7 @@ import React from 'react';
 import { ServerErrors } from 'src/shared/api/types/error';
 
 interface ErrorDisplayProps extends AlertProps {
-  error: ServerErrors;
+  error: ServerErrors | string;
 }
 
 export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ error, ...props }) => {
@@ -15,9 +15,13 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ error, ...props }) =
 
   return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      {error.errors.map((message, index) => (
-        <Alert key={index} message={getMessageLocalization(message.message)} {...props} />
-      ))}
+      {typeof error === 'string' ? (
+        <Alert message={getMessageLocalization(error)} {...props} />
+      ) : (
+        error.errors.map((message, index) => (
+          <Alert key={index} message={getMessageLocalization(message.message)} {...props} />
+        ))
+      )}
     </Space>
   );
 };

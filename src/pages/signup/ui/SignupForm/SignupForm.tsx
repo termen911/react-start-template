@@ -1,17 +1,36 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
-import { useSignupForm } from '../../model/useSignupForm';
 import { SignupFormData } from 'src/shared';
+import { ErrorCode, ServerErrors } from 'src/shared/api/types/error';
+import { useSignupForm } from '../../model/useSignupForm';
 
 interface SignupFormProps {
   onSubmit: (data: SignupFormData) => void;
   loading?: boolean;
+  serverError?: ServerErrors;
 }
 
-export const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, loading }) => {
-  const { control, handleSubmit, errors, isSubmitting } = useSignupForm();
+export const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, loading, serverError }) => {
+  const { control, handleSubmit, errors, isSubmitting, setError } = useSignupForm();
+
+  useEffect(() => {
+    console.log('serverError', serverError);
+    if (serverError) {
+      serverError.errors.map((error) => {
+        if (error.extensions.code === ErrorCode.ERR_VALIDATION_ERROR) {
+          setError('email', { message: error.message });
+        }
+        if (error.extensions.code === ErrorCode.ERR_FIELD_REQUIRED) {
+          setError(error.fieldName as keyof SignupFormData, { message: error.message });
+        }
+        if (error.extensions.code === ErrorCode.ERR_INVALID_PASSWORD) {
+          setError('password', { message: error.message });
+        }
+      });
+    }
+  }, [serverError, setError]);
 
   return (
     <Form layout="vertical" onFinish={handleSubmit(onSubmit)} size="large">

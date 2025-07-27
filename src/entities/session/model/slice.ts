@@ -45,7 +45,7 @@ const sessionSlice = createSlice({
       })
       .addCase(loginThunk.rejected, (state, action: PayloadAction<string>) => {
         state.status = 'rejected';
-        // state.error = action.payload;
+        state.error = action.payload;
       })
       .addCase(logoutThunk.fulfilled, (state) => {
         state.token = null;
@@ -54,7 +54,7 @@ const sessionSlice = createSlice({
       })
       .addCase(logoutThunk.rejected, (state, action: PayloadAction<string>) => {
         state.status = 'rejected';
-        // state.error = action.payload;
+        state.error = action.payload;
       })
       .addCase(signupThunk.pending, (state) => {
         state.status = 'loading';

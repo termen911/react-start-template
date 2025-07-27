@@ -11,5 +11,5 @@ export interface SessionState {
   user: Profile | null;
   lastRedirect: string | null;
   status: SliceStatus;
-  error: ServerErrors | null;
+  error: string | ServerErrors | null;
 }

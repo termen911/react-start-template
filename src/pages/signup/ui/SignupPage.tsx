@@ -1,5 +1,5 @@
-import { Button, Card, Flex, Space, Spin, Typography } from 'antd';
-import React from 'react';
+import { Button, Card, Flex, Radio, Space, Spin, Typography } from 'antd';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MainLayout } from 'src/shared';
 import { ErrorDisplay } from 'src/shared/ui/errorDisplay/ui/ErrorDisplay';
@@ -11,7 +11,8 @@ const { Text, Title } = Typography;
 const SignupPage = () => {
   const navigate = useNavigate();
 
-  const { error, isLoading, onSubmit } = useSignupPage();
+  const { error, isLoading, onSubmit, serverError } = useSignupPage();
+  const [mode, setMode] = useState<'thunk' | 'func'>('func');
 
   return (
     <MainLayout>
@@ -28,8 +29,13 @@ const SignupPage = () => {
               {error ? <ErrorDisplay error={error} type="error" showIcon={true} /> : null}
             </div>
 
+            <Radio.Group value={mode} onChange={(e) => setMode(e.target.value)}>
+              <Radio.Button value="func">Функциональный компонент</Radio.Button>
+              <Radio.Button value="thunk">redux-thunk</Radio.Button>
+            </Radio.Group>
+
             <Spin spinning={isLoading}>
-              <SignupForm onSubmit={onSubmit} />
+              <SignupForm onSubmit={(credentials) => onSubmit(credentials, mode)} serverError={serverError} />
             </Spin>
 
             <div style={{ textAlign: 'center' }}>
@@ -41,7 +47,7 @@ const SignupPage = () => {
                 </Text>
                 <Text>
                   Уже есть аккаунт?{' '}
-                  <Button type="link" onClick={() => navigate('/signin')}>
+                  <Button type="link" onClick={() => navigate('/login')}>
                     Войти
                   </Button>
                 </Text>

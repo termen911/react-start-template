@@ -12,7 +12,8 @@ import { storage, storageKeys } from 'src/shared/lib/storage';
 export const useSignupPage = () => {
   const dispatch = useAppDispatch();
 
-  const [error, setError] = useState<ServerErrors | null>(null);
+  const [error, setError] = useState<ServerErrors | string | null>(null);
+  const [serverError, setServerError] = useState<ServerErrors | null>(null);
   const sessionError = useSelector(selectSessionError);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -51,12 +52,15 @@ export const useSignupPage = () => {
       } else {
         const error = await response.json();
         setError(error);
+        setServerError(error);
       }
     } catch (error) {
       if (error.toString().includes('Unknown error')) {
         setError({ errors: [UNKNOWN_ERROR_MESSAGE] });
+        setServerError({ errors: [UNKNOWN_ERROR_MESSAGE] });
       } else {
         setError(error as ServerErrors);
+        setServerError(error as ServerErrors);
       }
     } finally {
       setIsLoading(false);
@@ -69,6 +73,7 @@ export const useSignupPage = () => {
 
   return {
     error,
+    serverError,
     isLoading,
     onSubmit,
   };

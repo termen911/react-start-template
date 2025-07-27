@@ -5,6 +5,7 @@ export const useSignupForm = () => {
   const {
     control,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<SignupFormData>({
     defaultValues: {
@@ -18,5 +19,6 @@ export const useSignupForm = () => {
     handleSubmit,
     errors,
     isSubmitting,
+    setError,
   };
 };
