@@ -16,7 +16,7 @@ const createApiHeaders = () => {
 };
 
 export const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
-  const url = `http://19429ba06ff2.vps.myjino.ru/api${endpoint}`;
+  const url = `https://19429ba06ff2.vps.myjino.ru/api${endpoint}`;
 
   const config: RequestInit = {
     ...options,
