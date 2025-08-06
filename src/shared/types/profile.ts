@@ -3,9 +3,10 @@ export enum UserRole {
   ADMIN = 'admin',
 }
 
-export interface Profile {
+export type Profile = {
   id: string;
-  nickname: string;
-  about: string;
-  role: UserRole;
-}
+  name: string;
+  email: string;
+  signUpDate: Date;
+  commandId: string;
+};

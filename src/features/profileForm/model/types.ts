@@ -1,10 +1,7 @@
-export interface ProfileFormData {
-  nickname: string;
-  about: string;
-}
-
-export interface ProfileFormProps {
-  onSubmit?: (data: ProfileFormData) => void;
-  initialData?: Partial<ProfileFormData>;
-  loading?: boolean;
-}
+export type Profile = {
+  id: string;
+  name: string;
+  email: string;
+  signUpDate: Date;
+  commandId: string;
+};

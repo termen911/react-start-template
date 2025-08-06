@@ -31,8 +31,8 @@ const WrappedTransactionDetailPage = withSuspenseAndErrorBoundary(
   lazy(() => import('src/pages/transactions/ui/TransactionDetailPage'))
 );
 const WrappedNotFoundPage = withSuspenseAndErrorBoundary(lazy(() => import('src/pages/notFound/ui/NotFoundPage')));
-const WrappedLoginPage = withSuspenseAndErrorBoundary(lazy(() => import('src/pages/login/ui/LoginPage')));
-const WrappedSignupPage = withSuspenseAndErrorBoundary(lazy(() => import('src/pages/signup/ui/SignupPage')));
+const WrappedSignupPage = withSuspenseAndErrorBoundary(lazy(() => import('src/pages/auth/signup/ui/SignupPage')));
+const WrappedSigninPage = withSuspenseAndErrorBoundary(lazy(() => import('src/pages/auth/signin/ui/SigninPage')));
 
 export const Navigation = () => {
   return (
@@ -62,7 +62,7 @@ export const Navigation = () => {
           </ProtectedRoute>
         }
       />
-      <Route path="/login" element={<WrappedLoginPage />} />
+      <Route path="/signin" element={<WrappedSigninPage />} />
       <Route path="/signup" element={<WrappedSignupPage />} />
       <Route path="*" element={<WrappedNotFoundPage />} />
     </Routes>
