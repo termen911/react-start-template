@@ -1,7 +1,7 @@
 export const navigationConfig = [
   {
-    label: 'navigation.transactions' as const,
-    path: '/transactions',
+    label: 'Операции',
+    path: '/operations',
     replace: true,
   },
 ] as const;

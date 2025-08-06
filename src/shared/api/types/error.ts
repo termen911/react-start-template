@@ -11,6 +11,12 @@ export type ServerErrors = {
   }[];
 };
 
+export type ClientError = {
+  code: ErrorCode;
+  message: string;
+  fieldName?: string;
+};
+
 export enum ErrorCode {
   ERR_INCORRECT_EMAIL_OR_PASSWORD = 'ERR_INCORRECT_EMAIL_OR_PASSWORD', // Если не корректный email или пароль
   ERR_ACCOUNT_ALREADY_EXIST = 'ERR_ACCOUNT_ALREADY_EXIST', // При регистрации если пользователь уже существует

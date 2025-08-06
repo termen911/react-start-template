@@ -7,6 +7,7 @@ import { I18nProvider, ThemeProvider } from './providers';
 import { AppInitializer } from './providers/AppInitializer';
 import { store } from './store';
 import './styles/global.scss';
+import { QueryClientProvider } from './providers/QueryClientProvider';
 
 function App() {
   return (
@@ -14,11 +15,13 @@ function App() {
       <Provider store={store}>
         <I18nProvider>
           <ThemeProvider>
-            <AppInitializer>
-              <BaseLayout>
-                <Navigation />
-              </BaseLayout>
-            </AppInitializer>
+            <QueryClientProvider>
+              <AppInitializer>
+                <BaseLayout>
+                  <Navigation />
+                </BaseLayout>
+              </AppInitializer>
+            </QueryClientProvider>
           </ThemeProvider>
         </I18nProvider>
       </Provider>

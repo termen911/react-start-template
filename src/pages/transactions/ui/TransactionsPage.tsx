@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppTranslation } from 'src/app/providers/i18n';
 import { useAppDispatch } from 'src/app/store';
-import { selectProfileIsAdmin } from 'src/entities/profile/model/selectors';
 import { selectTransactions } from 'src/entities/transaction/model/selectors';
 import { fetchTransactionsThunk } from 'src/entities/transaction/model/thunks';
 import { CreateTransactionButton, TransactionModal, useTransactionModal } from 'src/features/transaction';
@@ -16,7 +15,7 @@ const TransactionsPage = () => {
     useTransactionModal();
 
   const dispatch = useAppDispatch();
-  const isAdmin = useSelector(selectProfileIsAdmin);
+  const isAdmin = false;
   const transactions = useSelector(selectTransactions);
 
   useEffect(() => {

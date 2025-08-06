@@ -3,12 +3,10 @@ import { useDispatch } from 'react-redux';
 import { initStorageListener } from 'src/entities/session/lib/storageListener';
 import { sessionReducer } from '../entities/session';
 import { transactionsReducer } from '../entities/transaction';
-import { profileReducer } from 'src/entities/profile';
 
 export const store = configureStore({
   reducer: {
     session: sessionReducer,
-    profile: profileReducer,
     transactions: transactionsReducer,
   },
 });
