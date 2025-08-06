@@ -7,14 +7,12 @@ import { navigationConfig, NavigationItem } from 'src/shared/config';
 type MenuItem = Required<MenuProps>['items'][number];
 
 export const Navigation = () => {
-  const { t } = useAppTranslation();
-
   const location = useLocation();
   const navigate = useNavigate();
 
   const items: MenuItem[] = navigationConfig.map((item: NavigationItem) => ({
     key: item.path,
-    label: t(item.label),
+    label: item.label,
   }));
 
   const handleClick: MenuProps['onClick'] = (item) => {

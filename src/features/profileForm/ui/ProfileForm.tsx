@@ -8,7 +8,6 @@ import { selectSessionUser } from 'src/entities/session/model/selectors';
 import { Profile } from '../model/types';
 import { useProfileForm } from '../model/useProfileForm';
 
-
 export const ProfileForm = () => {
   const { t } = useAppTranslation();
   const user = useSelector(selectSessionUser);

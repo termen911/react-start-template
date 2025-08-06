@@ -1,4 +1,3 @@
-import { Spin } from 'antd';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectSessionIsInitialized, selectSessionToken, selectSessionUser } from 'src/entities/session';
@@ -16,7 +15,6 @@ export const AppInitializer = ({ children }: { children: React.ReactNode }) => {
       dispatch(setInitialized());
     }
   }, [dispatch, isInitialized]);
-
 
   return <>{children}</>;
 };

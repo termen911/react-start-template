@@ -1,7 +1,6 @@
 import { Col, Row } from 'antd';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectProfileIsAdmin } from 'src/entities/profile/model/selectors';
 import { TransactionActionsPanel } from './TransactionActionsPanel';
 import { TransactionDescriptionCard } from './TransactionDescriptionCard';
 import { TransactionDetailsPanel } from './TransactionDetailsPanel';
@@ -13,7 +12,7 @@ interface TransactionDetailProps {
 }
 
 export const TransactionDetail: React.FC<TransactionDetailProps> = ({ transactionId }) => {
-  const isAdmin = useSelector(selectProfileIsAdmin);
+  const isAdmin = false;
 
   return (
     <Row gutter={[24, 24]}>
