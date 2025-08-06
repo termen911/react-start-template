@@ -1,8 +1,10 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { Dropdown, theme, Typography, type MenuProps } from 'antd';
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAppTranslation } from 'src/app/providers/i18n';
 import { useAppDispatch } from 'src/app/store';
+import { operationQueryKeys } from 'src/entities/operation';
 import { setToken } from 'src/entities/session/model/slice';
 import { avatarDropdownNavigationConfig } from 'src/shared/config/avatarDropdownNavigation';
 
@@ -15,11 +17,21 @@ export const DropdownMenu = ({ children }: DropdownMenuProps) => {
   const { token } = theme.useToken();
   const location = useLocation();
   const dispatch = useAppDispatch();
-
+  const queryClient = useQueryClient();
   const items: MenuProps['items'] = avatarDropdownNavigationConfig.map((item) => ({
     key: item.path,
     label: (
-      <NavLink to={item.path} onClick={item.isLogout ? () => dispatch(setToken(null)) : undefined}>
+      <NavLink
+        to={item.path}
+        onClick={
+          item.isLogout
+            ? () => {
+                dispatch(setToken(null));
+                queryClient.invalidateQueries({ queryKey: operationQueryKeys.all });
+              }
+            : undefined
+        }
+      >
         <Typography.Text
           style={{
             color: location.pathname === item.path ? token.colorPrimary : 'inherit',
